@@ -1,0 +1,110 @@
+/* Visualizer Playground */
+.visualizer-container {
+    min-height: 300px;
+    background-color: #f8fafc;
+    border-radius: var(--radius-lg);
+    border: 2px dashed var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Center initially or if empty */
+    padding: 4rem;
+    overflow-x: auto;
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.list-wrapper {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+/* Individual List Node */
+.list-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.node-box {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, white, #f0f4ff);
+    border: 2px solid var(--primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    z-index: 2;
+    position: relative;
+}
+
+.node-index {
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    background: #ecf0f9;
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+/* Animations */
+.list-node.entering {
+    transform: scale(0) translateY(-50px);
+    opacity: 0;
+}
+
+.list-node.leaving {
+    transform: scale(0) translateY(50px);
+    opacity: 0;
+    width: 0;
+    /* Collapse space */
+    margin: 0;
+    overflow: hidden;
+}
+
+/* Highlight Animation */
+@keyframes highlight {
+    0% {
+        transform: scale(1);
+        border-color: var(--primary);
+    }
+
+    50% {
+        transform: scale(1.2);
+        border-color: var(--accent);
+        box-shadow: 0 0 20px rgba(255, 0, 200, 0.3);
+    }
+
+    100% {
+        transform: scale(1);
+        border-color: var(--primary);
+    }
+}
+
+.list-node.highlighted .node-box {
+    animation: highlight 0.6s ease;
+    border-color: var(--accent);
+    color: var(--accent);
+    background: #fff0f9;
+}
+
+/* Arrow Connector (Pseudo-element) */
+.list-node:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -18px;
+    top: 22px;
+    color: var(--border-color);
+    font-size: 1.2rem;
+    font-weight: 800;
+    z-index: 1;
+}
