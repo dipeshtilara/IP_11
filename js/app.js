@@ -342,6 +342,250 @@ function renderVisualizer(container) {
 }
 
 // ==========================================
+// MODULE: TRAVERSAL
+// ==========================================
+
+function renderTraversal(container) {
+    container.innerHTML = `
+        <div class="theory-nav" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap;">
+            <div style="display:flex; gap:1rem;">
+                <button class="btn btn-primary" id="btn-index-trav">1) Index Based</button>
+                <button class="btn btn-outline" id="btn-elem-trav" style="border:1px solid var(--primary); color:var(--primary); background:transparent;">2) Element Based</button>
+            </div>
+            
+            <button class="btn btn-accent" id="btn-debug-toggle" style="background:#f39c12; color:#fff; border:none; padding:10px 20px;">🐛 Launch Loop Visualizer</button>
+        </div>
+        
+        <div id="traversal-display" class="fade-in">
+            <!-- Content will be injected here -->
+        </div>
+
+        <div id="debugger-display" style="display:none; margin-top: 2rem;" class="fade-in">
+            <div class="card" style="background:#1e1e2e; color:#cdd6f4; font-family:'Fira Code', monospace; padding: 1.5rem; border: 1px solid #313244;">
+                <h3 style="color:#f9e2af; margin-bottom: 1rem; border-bottom: 1px solid #313244; padding-bottom: 0.5rem;">Loop Execution Debugger</h3>
+                
+                <div style="display:grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: stretch;">
+                    
+                    <!-- Left Column: The List Pointer -->
+                    <div style="display:flex; flex-direction:column; justify-content:center;">
+                        <div style="margin-bottom: 30px; color:#89b4fa;">List: fruits = ["apple", "banana", "cherry", "date"]</div>
+                        <div id="debugger-boxes" style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 2rem;">
+                            <!-- Boxes generated via JS -->
+                        </div>
+                        
+                        <div style="text-align:center;">
+                            <button id="btn-next-step" style="background:#a6e3a1; color:#11111b; font-weight:bold; border:none; padding:12px 24px; border-radius:4px; cursor:pointer;">▶ Next Step</button>
+                            <button id="btn-reset-loop" style="background:#f38ba8; color:#11111b; font-weight:bold; border:none; padding:12px 24px; border-radius:4px; cursor:pointer; margin-left: 10px;">🔄 Reset</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column: Live Specs Panel -->
+                    <div style="background:#181825; padding: 1rem; border-radius: 6px; border: 1px dashed #585b70;">
+                        <h4 style="color:#cba6f7; margin-top:0; margin-bottom: 1rem;">Live Specs Panel</h4>
+                        
+                        <div style="margin-bottom: 0.5rem;">
+                            <span style="color:#a6adc8;">Mode:</span> 
+                            <strong id="spec-mode" style="color:#f38ba8;">Index-Based</strong>
+                        </div>
+
+                        <div style="margin-bottom: 0.5rem;">
+                            <span style="color:#a6adc8;">Iteration:</span> 
+                            <strong id="spec-iter" style="color:#89b4fa;">Loop 0 of 4</strong>
+                        </div>
+                        
+                        <div style="margin-bottom: 0.5rem;">
+                            <span style="color:#a6adc8;">Loop Variable:</span> 
+                            <strong id="spec-var" style="color:#f9e2af;">Waiting...</strong>
+                        </div>
+                        
+                        <div style="margin-top: 1.5rem;">
+                            <span style="color:#a6adc8;">Current Action:</span> 
+                            <div id="spec-action" style="padding: 8px; background:#313244; border-radius: 4px; margin-top: 5px; color:#a6e3a1;">
+                                Click Next Step to start the loop.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    `;
+
+    const display = document.getElementById('traversal-display');
+    const debugDisplay = document.getElementById('debugger-display');
+    const btnIndex = document.getElementById('btn-index-trav');
+    const btnElem = document.getElementById('btn-elem-trav');
+    const btnDebug = document.getElementById('btn-debug-toggle');
+
+    const sampleList = ["apple", "banana", "cherry"];
+    const listStr = '["apple", "banana", "cherry"]';
+
+    // --- Theory View Generation ---
+    const indexContent = `
+        <div class="theory-card fade-in">
+            <h2>1) Index Based Traversal</h2>
+            <p>In index-based traversal, we use a loop and the <code>range(len(list))</code> function to generate index numbers from 0 to length-1. We then access elements using <code>list[i]</code>.</p>
+            
+            <div class="code-block">
+                fruits = ${listStr}<br>
+                <span class="keyword">for</span> i <span class="keyword">in</span> <span class="keyword">range</span>(<span class="keyword">len</span>(fruits)):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;print(f"Index {i}: {fruits[i]}")
+            </div>
+            
+            <div class="card" style="margin-top: 1.5rem; background: #fafafa;">
+                <h3>Execution Output visualization:</h3>
+                <div style="font-family: 'Fira Code', monospace; color: #555; margin-top: 0.5rem;">
+                    ${sampleList.map((item, i) => `<div>Iteration i=${i}: fruits[${i}] is "${item}"</div>`).join('')}
+                </div>
+            </div>
+        </div>
+    `;
+
+    const elemContent = `
+        <div class="theory-card fade-in">
+            <h2>2) Element Based Traversal</h2>
+            <p>In element-based traversal, the loop iterators directly take the value of each element in the list, one by one. This is more Pythonic but doesn't give you the index number directly.</p>
+            
+            <div class="code-block">
+                fruits = ${listStr}<br>
+                <span class="keyword">for</span> fruit <span class="keyword">in</span> fruits:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;print(f"Element: {fruit}")
+            </div>
+
+            <div class="card" style="margin-top: 1.5rem; background: #fafafa;">
+                <h3>Execution Output visualization:</h3>
+                <div style="font-family: 'Fira Code', monospace; color: #555; margin-top: 0.5rem;">
+                    ${sampleList.map((item) => `<div>Iteration: fruit is "${item}"</div>`).join('')}
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Default theory view
+    display.innerHTML = indexContent;
+
+    // --- State Machine for Debugger ---
+    let currentMode = 'index'; // 'index' or 'element'
+    let isDebugVisible = false;
+    let loopIndex = -1; // -1 means hasn't started
+    const debugList = ["apple", "banana", "cherry", "date"];
+    const maxIndex = debugList.length;
+
+    // UI Elements for Debugger
+    const boxContainer = document.getElementById('debugger-boxes');
+    const specMode = document.getElementById('spec-mode');
+    const specIter = document.getElementById('spec-iter');
+    const specVar = document.getElementById('spec-var');
+    const specAction = document.getElementById('spec-action');
+
+    const drawBoxes = () => {
+        boxContainer.innerHTML = '';
+        debugList.forEach((item, i) => {
+            const isProcessed = i < loopIndex;
+            const isActive = i === loopIndex;
+
+            let bgCol = '#313244'; // Unprocessed
+            let borderCol = '#45475a';
+            let txtCol = '#cdd6f4';
+
+            if (isProcessed) { bgCol = '#a6e3a1'; borderCol = '#a6e3a1'; txtCol = '#11111b'; }
+            if (isActive) { bgCol = '#f9e2af'; borderCol = '#f39c12'; txtCol = '#11111b'; boxShadow = '0 0 10px #f39c12'; }
+
+            const pointVar = currentMode === 'index' ? `i=${i}` : `val="${item}"`;
+            const headerStr = isActive ? `<div style="color:#f39c12; font-weight:bold; position:absolute; top:-35px; left:0; width:100%; text-align:center; white-space:nowrap;">&darr; ${pointVar}</div>` : '';
+
+            const shadow = isActive ? 'box-shadow: 0 0 15px rgba(243, 156, 18, 0.6);' : '';
+            const transform = isActive ? 'transform: translateY(-5px);' : '';
+
+            boxContainer.innerHTML += `
+                <div style="position:relative; margin-top:20px; transition: all 0.3s ease; width:80px; height:80px; background:${bgCol}; border:2px solid ${borderCol}; border-radius:8px; display:flex; flex-direction:column; justify-content:center; align-items:center; color:${txtCol}; ${shadow} ${transform}">
+                    ${headerStr}
+                    <div style="font-size: 0.9em; font-weight:bold;">${item}</div>
+                    <div style="font-size: 0.7em; opacity: 0.7;">index ${i}</div>
+                </div>
+            `;
+        });
+    };
+
+    const updateSpecs = () => {
+        if (loopIndex === -1) {
+            specIter.textContent = `Loop 0 of ${maxIndex}`;
+            specVar.textContent = "Waiting...";
+            specAction.textContent = "Click 'Next Step' to enter the loop.";
+            specAction.style.color = "#a6e3a1";
+        } else if (loopIndex >= maxIndex) {
+            specIter.textContent = "Finished!";
+            specVar.textContent = "Loop Exited.";
+            specAction.textContent = "Iteration mechanically complete. All items processed.";
+            specAction.style.color = "#f38ba8";
+        } else {
+            specIter.textContent = `Loop ${loopIndex + 1} of ${maxIndex}`;
+
+            if (currentMode === 'index') {
+                specVar.textContent = `i = ${loopIndex}`;
+                specAction.innerHTML = `1. Generate range sequence: <code>i</code> becomes <strong>${loopIndex}</strong><br>2. Extracting item <code>fruits[${loopIndex}]</code> &rarr; <strong>"${debugList[loopIndex]}"</strong>`;
+            } else {
+                specVar.textContent = `fruit = "${debugList[loopIndex]}"`;
+                specAction.innerHTML = `Directly extracting next sequence item: <code>fruit</code> &rarr; <strong>"${debugList[loopIndex]}"</strong>`;
+            }
+            specAction.style.color = "#89dceb";
+        }
+    };
+
+    const runStateUpdate = () => {
+        specMode.textContent = currentMode === 'index' ? "Index-Based (range)" : "Element-Based";
+        drawBoxes();
+        updateSpecs();
+    };
+
+
+    btnIndex.addEventListener('click', () => {
+        display.innerHTML = indexContent;
+        currentMode = 'index';
+        btnIndex.className = 'btn btn-primary'; btnIndex.style = '';
+        btnElem.className = 'btn btn-outline'; btnElem.style = 'border:1px solid var(--primary); color:var(--primary); background:transparent;';
+        if (isDebugVisible) runStateUpdate();
+    });
+
+    btnElem.addEventListener('click', () => {
+        display.innerHTML = elemContent;
+        currentMode = 'element';
+        btnElem.className = 'btn btn-primary'; btnElem.style = '';
+        btnIndex.className = 'btn btn-outline'; btnIndex.style = 'border:1px solid var(--primary); color:var(--primary); background:transparent;';
+        if (isDebugVisible) runStateUpdate();
+    });
+
+    btnDebug.addEventListener('click', () => {
+        isDebugVisible = !isDebugVisible;
+        if (isDebugVisible) {
+            debugDisplay.style.display = 'block';
+            btnDebug.textContent = "📖 Hide Visualizer";
+            btnDebug.style.background = "#f38ba8"; // Redish text to close
+            loopIndex = -1; // Reset on open
+            runStateUpdate();
+            // Scroll to visualizer
+            debugDisplay.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            debugDisplay.style.display = 'none';
+            btnDebug.textContent = "🐛 Launch Loop Visualizer";
+            btnDebug.style.background = "#f39c12"; // Yellow
+        }
+    });
+
+    document.getElementById('btn-next-step').addEventListener('click', () => {
+        if (loopIndex < maxIndex) {
+            loopIndex++;
+            runStateUpdate();
+        }
+    });
+
+    document.getElementById('btn-reset-loop').addEventListener('click', () => {
+        loopIndex = -1;
+        runStateUpdate();
+    });
+}
+
+// ==========================================
 // MODULE: QUIZ
 // ==========================================
 
@@ -437,13 +681,13 @@ async function renderQuiz(container) {
                         selectedMatch.closest('label').style.background = 'rgba(16, 185, 129, 0.1)';
                         selectedMatch.closest('label').style.borderColor = '#10b981';
                     } else {
-                        feedbackEl.innerHTML = `❌ Incorrect. The correct answer is: <span style="font-family: monospace;">${q.options[q.answer]}</span>`;
+                        feedbackEl.innerHTML = `❌ Incorrect.The correct answer is: <span style="font-family: monospace;">${q.options[q.answer]}</span>`;
                         feedbackEl.style.color = "#ef4444";
                         selectedMatch.closest('label').style.background = 'rgba(239, 68, 68, 0.1)';
                         selectedMatch.closest('label').style.borderColor = '#ef4444';
                     }
                 } else {
-                    feedbackEl.innerHTML = `⚠️ No answer selected. The correct answer is: <span style="font-family: monospace;">${q.options[q.answer]}</span>`;
+                    feedbackEl.innerHTML = `⚠️ No answer selected.The correct answer is: <span style="font-family: monospace;">${q.options[q.answer]}</span>`;
                     feedbackEl.style.color = "#f59e0b";
                 }
             });
@@ -457,7 +701,7 @@ async function renderQuiz(container) {
             else if (percentage >= 60) message = "Good effort! 👍";
             else message = "Keep reviewing the Theory section! 📚";
 
-            resultEl.innerHTML = `You scored ${score} out of ${currentQuizData.length} (${percentage}%)<br><span style="font-size: 1.2rem; color: #64748b; margin-top: 0.5rem; display: block;">${message}</span>`;
+            resultEl.innerHTML = `You scored ${score} out of ${currentQuizData.length} (${percentage}%) <br><span style="font-size: 1.2rem; color: #64748b; margin-top: 0.5rem; display: block;">${message}</span>`;
 
             // Swap buttons
             const submitBtn = document.getElementById('btn-submit-quiz');
@@ -492,6 +736,10 @@ const routes = {
     visualizer: {
         title: 'List Visualizer Playground',
         render: renderVisualizer
+    },
+    traversal: {
+        title: 'Traversing a List',
+        render: renderTraversal
     },
     quiz: {
         title: 'Test Your Knowledge',
