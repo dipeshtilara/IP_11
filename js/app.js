@@ -720,6 +720,295 @@ async function renderQuiz(container) {
 }
 
 // ==========================================
+// MODULE: SLICING
+// ==========================================
+
+function renderSlicing(container) {
+    container.innerHTML = `
+        <div class="card fade-in" style="background:var(--card-bg); border-radius:12px; padding:2rem; box-shadow:var(--shadow);">
+            
+            <div style="display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1px solid #e2e8f0; padding-bottom:1rem; margin-bottom:2rem;">
+                <div>
+                    <h2 style="color:var(--primary); margin-bottom:0.5rem; display:flex; align-items:center; gap:0.5rem;"><span style="font-size:1.5rem;">✂️</span> Slicing Workbench</h2>
+                    <p style="color:#64748b; margin:0;">Visualizing Python's <code>list[start:stop:step]</code> syntax.</p>
+                </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 2fr; gap:2rem; align-items:start;">
+                
+                <!-- Controls Panel -->
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:1.5rem;">
+                    <h3 style="font-size:1.1rem; color:#334155; margin-top:0; margin-bottom:1.5rem;">Slice Parameters</h3>
+                    
+                    <div style="margin-bottom:1.5rem;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+                            <label style="font-family:monospace; font-weight:bold; color:var(--primary);">start:</label>
+                            <span id="val-start" style="color:#64748b; font-family:monospace;">(default: 0)</span>
+                        </div>
+                        <input type="range" id="slider-start" min="-7" max="7" value="none" class="slice-slider" style="width:100%;">
+                        <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#94a3b8; margin-top:0.2rem;">
+                            <span>-7</span><span>0</span><span>7</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:1.5rem;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+                            <label style="font-family:monospace; font-weight:bold; color:var(--primary);">stop:</label>
+                            <span id="val-stop" style="color:#64748b; font-family:monospace;">(default: end)</span>
+                        </div>
+                        <input type="range" id="slider-stop" min="-7" max="7" value="none" class="slice-slider" style="width:100%;">
+                        <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#94a3b8; margin-top:0.2rem;">
+                            <span>-7</span><span>0</span><span>7</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:1.5rem;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+                            <label style="font-family:monospace; font-weight:bold; color:var(--primary);">step:</label>
+                            <span id="val-step" style="color:#64748b; font-family:monospace;">1</span>
+                        </div>
+                        <input type="range" id="slider-step" min="-3" max="3" value="1" class="slice-slider" style="width:100%;">
+                        <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:#94a3b8; margin-top:0.2rem;">
+                            <span>-3</span><span>0 (invalid)</span><span>3</span>
+                        </div>
+                    </div>
+                    
+                    <button id="btn-reset-slice" class="btn btn-outline" style="width:100%;">Reset to Defaults</button>
+                </div>
+
+                <!-- Visualization Panel -->
+                <div style="display:flex; flex-direction:column;">
+                    
+                    <!-- Live Formula -->
+                    <div style="background:#1e1e2e; color:#cdd6f4; font-family:'Fira Code', monospace; padding:1.2rem; border-radius:8px; border-left:4px solid #f39c12; margin-bottom:2rem; box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+                        <div style="color:#89b4fa; margin-bottom:0.5rem;">my_list = ["A", "B", "C", "D", "E", "F", "G"]</div>
+                        <div style="font-size:1.2rem; display:flex; align-items:center;">
+                            re_list = my_list[<span id="code-start" style="color:#f38ba8; margin:0 2px;"></span>:<span id="code-stop" style="color:#a6e3a1; margin:0 2px;"></span>:<span id="code-step" style="color:#f9e2af; margin:0 2px;">1</span>]
+                        </div>
+                    </div>
+
+                    <!-- The List Boxes -->
+                    <div id="slice-boxes" style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:2rem; margin-bottom:3rem;">
+                        <!-- Generated by JS -->
+                    </div>
+
+                    <!-- Result Preview -->
+                    <div style="margin-top:auto; background:#f1f5f9; padding:1rem; border-radius:6px; border:1px solid #cbd5e1;">
+                        <h4 style="margin:0 0 0.5rem 0; color:#475569; font-size:0.9rem; text-transform:uppercase;">Resulting List</h4>
+                        <div id="slice-result" style="font-family:'Fira Code', monospace; font-size:1.1rem; color:var(--primary); font-weight:bold;">
+                            ["A", "B", "C", "D", "E", "F", "G"]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    const sampleList = ["A", "B", "C", "D", "E", "F", "G"];
+    const len = sampleList.length;
+
+    // UI Elements
+    const sliderStart = document.getElementById('slider-start');
+    const sliderStop = document.getElementById('slider-stop');
+    const sliderStep = document.getElementById('slider-step');
+
+    const valStart = document.getElementById('val-start');
+    const valStop = document.getElementById('val-stop');
+    const valStep = document.getElementById('val-step');
+
+    const codeStart = document.getElementById('code-start');
+    const codeStop = document.getElementById('code-stop');
+    const codeStep = document.getElementById('code-step');
+
+    const boxContainer = document.getElementById('slice-boxes');
+    const resultBox = document.getElementById('slice-result');
+
+    // State Variables (null implies default)
+    let startConfig = null;
+    let stopConfig = null;
+    let stepConfig = 1;
+
+    // Helper: Normalize start/stop string from slider (handling "none")
+    function parseSliderVal(valStr) {
+        if (!valStr || valStr === "none" || valStr === "") return null;
+        return parseInt(valStr);
+    }
+
+    // Python Slice Logic Implementation
+    // Resolving negative or omitted indices to actual 0-based bounds based on Python rules.
+    function resolveBounds(start, stop, step, length) {
+        let actualStart, actualStop;
+
+        if (step > 0) {
+            // Default bounds for positive step
+            actualStart = start === null ? 0 : (start < 0 ? start + length : start);
+            actualStop = stop === null ? length : (stop < 0 ? stop + length : stop);
+
+            // Constrain
+            actualStart = Math.max(0, Math.min(actualStart, length));
+            actualStop = Math.max(0, Math.min(actualStop, length));
+        } else if (step < 0) {
+            // Default bounds for negative step
+            actualStart = start === null ? length - 1 : (start < 0 ? start + length : start);
+            actualStop = stop === null ? -1 : (stop < 0 ? stop + length : stop);
+
+            // Constrain (start can be length-1 down to 0, stop can be length-2 down to -1)
+            actualStart = Math.min(length - 1, Math.max(actualStart, -1));
+            actualStop = Math.min(length - 1, Math.max(actualStop, -1));
+        } else {
+            // Step = 0 is invalid
+            return [];
+        }
+
+        // Generate the indices included in the slice
+        let includedIndices = [];
+        if (step > 0) {
+            for (let i = actualStart; i < actualStop; i += step) {
+                includedIndices.push(i);
+            }
+        } else {
+            for (let i = actualStart; i > actualStop; i += step) {
+                includedIndices.push(i);
+            }
+        }
+        return includedIndices;
+    }
+
+    const updateSlicer = () => {
+        // Handle step = 0 (snap to 1)
+        if (stepConfig === 0) {
+            stepConfig = 1;
+            sliderStep.value = 1;
+        }
+
+        // Update Labels
+        valStart.textContent = startConfig === null ? "(default)" : startConfig;
+        codeStart.textContent = startConfig === null ? "" : startConfig;
+
+        valStop.textContent = stopConfig === null ? "(default)" : stopConfig;
+        codeStop.textContent = stopConfig === null ? "" : stopConfig;
+
+        valStep.textContent = stepConfig;
+        codeStep.textContent = stepConfig;
+
+        // Hide trailing colons if default
+        if (stepConfig === 1 && stopConfig === null) {
+            codeStep.previousSibling.textContent = "";
+            codeStep.textContent = "";
+        } else {
+            codeStep.previousSibling.textContent = ":";
+        }
+
+        // Calculate active indices
+        const activeIndices = resolveBounds(startConfig, stopConfig, stepConfig, len);
+
+        // Draw Boxes
+        boxContainer.innerHTML = '';
+        sampleList.forEach((item, posIndex) => {
+            const negIndex = posIndex - len;
+            const isIncluded = activeIndices.includes(posIndex);
+
+            // Find if it was "skipped" inside bounds
+            // A skipped box is between the min and max of active indices, but not in the array
+            let isSkipped = false;
+            if (activeIndices.length > 0 && !isIncluded) {
+                const minActive = Math.min(...activeIndices);
+                const maxActive = Math.max(...activeIndices);
+                if (posIndex > minActive && posIndex < maxActive) {
+                    isSkipped = true;
+                }
+            }
+
+            // Styling
+            let bgCol = '#ffffff';
+            let borderCol = '#cbd5e1';
+            let txtCol = '#475569';
+            let opacity = '0.4'; // Dim
+            let transform = 'scale(0.95)';
+            let filter = 'grayscale(100%)';
+
+            if (isIncluded) {
+                bgCol = 'rgba(56, 189, 248, 0.1)'; // Bright blue tint
+                borderCol = '#0284c7';
+                txtCol = '#0f172a';
+                opacity = '1';
+                transform = 'scale(1.05)';
+                filter = 'none';
+
+                // Show sequence order if step is backwards or >1
+                const orderText = activeIndices.indexOf(posIndex) + 1;
+                var orderBadge = `<div style="position:absolute; top:-10px; right:-10px; background:#f59e0b; color:#fff; width:20px; height:20px; border-radius:10px; font-size:0.75rem; font-weight:bold; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,0.2);">${orderText}</div>`;
+            } else {
+                var orderBadge = '';
+            }
+
+            if (isSkipped) {
+                bgCol = '#f1f5f9'; // Gray indicator
+                txtCol = '#94a3b8';
+                borderCol = '#e2e8f0';
+                opacity = '0.6';
+            }
+
+            boxContainer.innerHTML += `
+                <div style="display:flex; flex-direction:column; align-items:center; opacity:${opacity}; transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1); filter:${filter};">
+                    <div style="font-family:monospace; color:#8b5cf6; font-weight:bold; margin-bottom:5px; font-size:0.9rem;">${posIndex}</div>
+                    <div style="position:relative; width:60px; height:60px; background:${bgCol}; border:2px solid ${borderCol}; border-radius:8px; display:flex; justify-content:center; align-items:center; font-size:1.5rem; font-family:'Fira Code', monospace; font-weight:bold; color:${txtCol}; transform:${transform}; box-shadow: ${isIncluded ? '0 4px 6px rgba(14, 165, 233, 0.2)' : 'none'};">
+                        ${item}
+                        ${orderBadge}
+                    </div>
+                    <div style="font-family:monospace; color:#f43f5e; margin-top:5px; font-size:0.85rem;">${negIndex}</div>
+                </div>
+            `;
+        });
+
+        // Update Result Code
+        if (activeIndices.length === 0) {
+            resultBox.textContent = "[] (Empty List)";
+            resultBox.style.color = "#94a3b8";
+        } else {
+            const resultItems = activeIndices.map(i => `"${sampleList[i]}"`);
+            resultBox.textContent = `[${resultItems.join(", ")}]`;
+            resultBox.style.color = "var(--primary)";
+        }
+    };
+
+    // Event Listeners for Sliders
+    // Double click to reset a specific slider
+    sliderStart.addEventListener('dblclick', (e) => { e.target.value = "none"; startConfig = null; updateSlicer(); });
+    sliderStop.addEventListener('dblclick', (e) => { e.target.value = "none"; stopConfig = null; updateSlicer(); });
+    sliderStep.addEventListener('dblclick', (e) => { e.target.value = 1; stepConfig = 1; updateSlicer(); });
+
+    sliderStart.addEventListener('input', (e) => {
+        // Special logic: Slider center (0) can be dragged below 0 to negative, or above. 
+        // HTML slider has no 'none', so we treat min value (-8) as 'none' visually for UX, 
+        // but it's cleaner to just use buttons or let users slide.
+        // For simplicity: If user slides to extreme min (-7), we'll let it be -7.
+        startConfig = parseInt(e.target.value);
+        updateSlicer();
+    });
+
+    sliderStop.addEventListener('input', (e) => {
+        stopConfig = parseInt(e.target.value);
+        updateSlicer();
+    });
+
+    sliderStep.addEventListener('input', (e) => {
+        stepConfig = parseInt(e.target.value);
+        updateSlicer();
+    });
+
+    document.getElementById('btn-reset-slice').addEventListener('click', () => {
+        startConfig = null; sliderStart.value = 0; // Visually resets to middle but logic is null
+        stopConfig = null; sliderStop.value = 0;
+        stepConfig = 1; sliderStep.value = 1;
+        updateSlicer();
+    });
+
+    // Initial render
+    updateSlicer();
+}
+
+// ==========================================
 // APP: ROUTER & INIT
 // ==========================================
 
@@ -740,6 +1029,10 @@ const routes = {
     traversal: {
         title: 'Traversing a List',
         render: renderTraversal
+    },
+    slicing: {
+        title: 'Slicing Workbench',
+        render: renderSlicing
     },
     quiz: {
         title: 'Test Your Knowledge',
