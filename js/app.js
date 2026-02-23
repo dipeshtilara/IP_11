@@ -195,9 +195,13 @@ function renderVisualizer(container) {
     const createNodeFn = (val, idx, isNew = false) => {
         const node = document.createElement('div');
         node.className = `list-node ${isNew ? 'entering' : ''}`;
+
+        // Calculate negative index (e.g. if length is 4: index 3 is -1, index 2 is -2)
+        const negIdx = idx - listData.length;
+
         node.innerHTML = `
             <div class="node-box">${val}</div>
-            <div class="node-index">${idx}</div>
+            <div class="node-index">${idx} <br><span style="color:#a8a29e; font-size: 0.8em">(${negIdx})</span></div>
         `;
         return node;
     };
@@ -254,24 +258,28 @@ function renderVisualizer(container) {
     // Insert
     document.getElementById('btn-insert').addEventListener('click', () => {
         const val = valInput.value;
-        let idx = parseInt(idxInput.value);
+        const inputIdx = parseInt(idxInput.value);
 
-        if (val === '' || isNaN(idx)) return;
+        if (val === '' || isNaN(inputIdx)) return;
 
-        // Python behavior: clamp index
-        if (idx < 0) idx = 0;
-        if (idx > listData.length) idx = listData.length;
+        // Python behavior: handle negative index and clamping
+        let actualIdx = inputIdx;
+        if (actualIdx < 0) {
+            actualIdx = listData.length + actualIdx;
+            if (actualIdx < 0) actualIdx = 0;
+        }
+        if (actualIdx > listData.length) actualIdx = listData.length;
 
-        listData.splice(idx, 0, val);
-        log(`list.insert(${idx}, ${val})`);
+        listData.splice(actualIdx, 0, val);
+        log(`list.insert(${inputIdx}, ${val})`);
         render(); // Full re-render is easiest for insert to act correctly visually
 
         // Highlight the new node? 
         // We can find it and animate it
         const nodes = listDisplay.children;
-        if (nodes[idx]) {
-            nodes[idx].classList.add('entering');
-            setTimeout(() => nodes[idx].classList.remove('entering'), 400);
+        if (nodes[actualIdx]) {
+            nodes[actualIdx].classList.add('entering');
+            setTimeout(() => nodes[actualIdx].classList.remove('entering'), 400);
         }
 
         valInput.value = '';
@@ -334,6 +342,140 @@ function renderVisualizer(container) {
 }
 
 // ==========================================
+// MODULE: QUIZ
+// ==========================================
+
+async function renderQuiz(container) {
+    container.innerHTML = '<div class="card fade-in" style="text-align: center; padding: 3rem;"><h2>Loading Quiz... ⏳</h2></div>';
+
+    try {
+        // Fetch the 50 questions from python injected window object
+        if (!window.QUIZ_DATA) throw new Error("Questions data not found in window object.");
+
+        // window.QUIZ_DATA is already a Javascript array of objects, no need to JSON.parse it if we use it directly!
+        const allQuestions = window.QUIZ_DATA;
+
+        // Shuffle all questions and pick 5 random ones
+        const shuffledQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
+
+        // Deep copy safely 
+        const currentQuizData = JSON.parse(JSON.stringify(shuffledQuestions));
+
+        // Shuffle the options within each question
+        currentQuizData.forEach(q => {
+            const originalAnswerText = q.options[q.answer];
+
+            // Fisher-Yates shuffle for options
+            for (let i = q.options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [q.options[i], q.options[j]] = [q.options[j], q.options[i]];
+            }
+
+            // Update answer index to reflect shuffled options
+            q.answer = q.options.indexOf(originalAnswerText);
+        });
+
+        // Build HTML
+        let quizHtml = '<div class="card fade-in"><h2>Python Lists Quiz (5 Random Questions)</h2><div class="quiz-container">';
+
+        currentQuizData.forEach((q, index) => {
+            quizHtml += `
+                <div class="quiz-question" style="margin-bottom: 2rem;">
+                    <p style="font-size: 1.1rem; margin-bottom: 0.8rem;"><strong>${index + 1}. ${q.question}</strong></p>
+                    <div class="options" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        ${q.options.map((opt, i) => `
+                            <label style="cursor: pointer; padding: 0.8rem; border: 1px solid #e2e8f0; border-radius: 8px; display: block; transition: all 0.2s ease;">
+                                <input type="radio" name="q${index}" value="${i}" style="margin-right: 0.5rem;"> 
+                                <span style="font-family: monospace; font-size: 1.05rem;">${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                    <div id="feedback-${index}" style="margin-top: 0.5rem; font-weight: 500;"></div>
+                </div>
+            `;
+        });
+
+        quizHtml += `
+                <button class="btn btn-primary" id="btn-submit-quiz" style="margin-top: 1rem; width: 100%; padding: 1rem; font-size: 1.1rem;">Submit Answers</button>
+                <div id="quiz-result" style="margin-top: 1.5rem; font-size: 1.5rem; font-weight: bold; text-align: center; color: var(--primary);"></div>
+                <button class="btn btn-outline" id="btn-retry-quiz" style="margin-top: 1rem; width: 100%; padding: 1rem; font-size: 1.1rem; display: none;">Take Another Quiz</button>
+            </div>
+        </div>`;
+
+        container.innerHTML = quizHtml;
+
+        // Add interactivity to options for styling
+        const labels = container.querySelectorAll('.options label');
+        labels.forEach(label => {
+            label.addEventListener('click', function () {
+                const group = this.closest('.options');
+                group.querySelectorAll('label').forEach(l => {
+                    l.style.background = 'transparent';
+                    l.style.borderColor = '#e2e8f0';
+                });
+                this.style.background = 'rgba(108, 92, 231, 0.05)';
+                this.style.borderColor = 'var(--primary)';
+            });
+        });
+
+        document.getElementById('btn-submit-quiz').addEventListener('click', () => {
+            let score = 0;
+            currentQuizData.forEach((q, index) => {
+                const selectedMatch = container.querySelector(`input[name="q${index}"]:checked`);
+                const feedbackEl = document.getElementById(`feedback-${index}`);
+                const optionsGroup = feedbackEl.previousElementSibling;
+
+                // Disable inputs after submit
+                optionsGroup.querySelectorAll('input').forEach(input => input.disabled = true);
+
+                if (selectedMatch) {
+                    const selectedAns = parseInt(selectedMatch.value);
+                    if (selectedAns === q.answer) {
+                        score++;
+                        feedbackEl.textContent = "✅ Correct!";
+                        feedbackEl.style.color = "#10b981";
+                        selectedMatch.closest('label').style.background = 'rgba(16, 185, 129, 0.1)';
+                        selectedMatch.closest('label').style.borderColor = '#10b981';
+                    } else {
+                        feedbackEl.innerHTML = `❌ Incorrect. The correct answer is: <span style="font-family: monospace;">${q.options[q.answer]}</span>`;
+                        feedbackEl.style.color = "#ef4444";
+                        selectedMatch.closest('label').style.background = 'rgba(239, 68, 68, 0.1)';
+                        selectedMatch.closest('label').style.borderColor = '#ef4444';
+                    }
+                } else {
+                    feedbackEl.innerHTML = `⚠️ No answer selected. The correct answer is: <span style="font-family: monospace;">${q.options[q.answer]}</span>`;
+                    feedbackEl.style.color = "#f59e0b";
+                }
+            });
+
+            const resultEl = document.getElementById('quiz-result');
+            const percentage = Math.round((score / currentQuizData.length) * 100);
+
+            let message = "";
+            if (percentage === 100) message = "Perfect! 🏆";
+            else if (percentage >= 80) message = "Great job! 🌟";
+            else if (percentage >= 60) message = "Good effort! 👍";
+            else message = "Keep reviewing the Theory section! 📚";
+
+            resultEl.innerHTML = `You scored ${score} out of ${currentQuizData.length} (${percentage}%)<br><span style="font-size: 1.2rem; color: #64748b; margin-top: 0.5rem; display: block;">${message}</span>`;
+
+            // Swap buttons
+            const submitBtn = document.getElementById('btn-submit-quiz');
+            submitBtn.style.display = 'none';
+
+            const retryBtn = document.getElementById('btn-retry-quiz');
+            retryBtn.style.display = 'block';
+            retryBtn.addEventListener('click', () => renderQuiz(container)); // Reload quiz
+
+            container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+        });
+
+    } catch (error) {
+        container.innerHTML = `<div class="card fade-in"><h2 style="color: red;">Error</h2><p>${error.message}</p></div>`;
+    }
+}
+
+// ==========================================
 // APP: ROUTER & INIT
 // ==========================================
 
@@ -353,9 +495,7 @@ const routes = {
     },
     quiz: {
         title: 'Test Your Knowledge',
-        render: (container) => {
-            container.innerHTML = '<div class="card"><h2>Coming Soon</h2><p>The quiz module is currently under development.</p></div>';
-        }
+        render: renderQuiz
     }
 };
 
