@@ -41,6 +41,13 @@ def load_local_app():
         with open(js_path, "r", encoding="utf-8") as f:
             js_content = f"<script>\n{f.read()}\n</script>"
             
+    # Inline Questions Data directly to avoid HTTP Fetch errors in Streamlit components
+    json_path = os.path.join(base_dir, "questionbank.json")
+    if os.path.exists(json_path):
+        with open(json_path, "r", encoding="utf-8") as f:
+            json_data = f.read()
+            html_content = html_content.replace('<script src="js/app.js"></script>', f"<script>window.QUIZ_DATA = {json_data};</script>\n<script src=\"js/app.js\"></script>")
+
     # Replace external script reference with inline script
     html_content = html_content.replace('<script src="js/app.js"></script>', js_content)
     

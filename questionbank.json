@@ -1,0 +1,252 @@
+[
+    {
+        "question": "Which of the following creates an empty list?",
+        "options": ["list = []", "list = ()", "list = {}", "list = ||"],
+        "answer": 0
+    },
+    {
+        "question": "What is the output of `[1, 2] * 2`?",
+        "options": ["[1, 2, 1, 2]", "[2, 4]", "[1, 2, 2]", "Error"],
+        "answer": 0
+    },
+    {
+        "question": "What is the negative index for the last element in a Python list?",
+        "options": ["0", "-1", "-2", "None of the above"],
+        "answer": 1
+    },
+    {
+        "question": "Which method is used to add an item to the end of a list?",
+        "options": ["insert()", "add()", "push()", "append()"],
+        "answer": 3
+    },
+    {
+        "question": "What is the output of `nums[2:5]` if `nums = [0, 1, 2, 3, 4, 5]`?",
+        "options": ["[2, 3, 4, 5]", "[1, 2, 3]", "[2, 3, 4]", "[3, 4, 5]"],
+        "answer": 2
+    },
+    {
+        "question": "Lists in Python are ___.",
+        "options": ["Immutable", "Mutable", "Fixed-size", "Tuple-like"],
+        "answer": 1
+    },
+    {
+        "question": "Which method removes all elements from a list?",
+        "options": ["remove()", "pop()", "clear()", "delete()"],
+        "answer": 2
+    },
+    {
+        "question": "What does `list.pop()` do if no index is provided?",
+        "options": ["Removes the first element", "Removes the last element", "Clears the list", "Throws an error"],
+        "answer": 1
+    },
+    {
+        "question": "How do you check if an item 'x' exists in a list `L`?",
+        "options": ["x in L", "L.contains(x)", "L.has(x)", "L.find(x)"],
+        "answer": 0
+    },
+    {
+        "question": "What does `len([1, 2, [3, 4]])` return?",
+        "options": ["2", "3", "4", "Error"],
+        "answer": 1
+    },
+    {
+        "question": "Given `L = [10, 20, 30]`, what is `L[-2]`?",
+        "options": ["10", "20", "30", "IndexError"],
+        "answer": 1
+    },
+    {
+        "question": "Which operator is used to concatenate two lists?",
+        "options": ["*", "+", "&", "++"],
+        "answer": 1
+    },
+    {
+        "question": "How do you add `[4, 5]` to the end of `[1, 2, 3]` without creating a nested list?",
+        "options": ["append([4, 5])", "extend([4, 5])", "insert([4, 5])", "add([4, 5])"],
+        "answer": 1
+    },
+    {
+        "question": "What is the runtime complexity of accessing an element in a Python list by index?",
+        "options": ["O(1)", "O(n)", "O(log n)", "O(n^2)"],
+        "answer": 0
+    },
+    {
+        "question": "Given `L = [1, 2, 3]`, what does `L.reverse()` return?",
+        "options": ["[3, 2, 1]", "None", "Error", "[1, 2, 3]"],
+        "answer": 1
+    },
+    {
+        "question": "What does `[1, 2, 3][::-1]` do?",
+        "options": ["Throws an error", "Returns [3, 2, 1]", "Returns [1, 2, 3]", "Returns None"],
+        "answer": 1
+    },
+    {
+        "question": "Which of the following is NOT a valid list method?",
+        "options": ["sort()", "remove()", "push()", "insert()"],
+        "answer": 2
+    },
+    {
+        "question": "If `L1 = [1, 2]` and `L2 = L1`, what happens when you do `L1.append(3)`?",
+        "options": ["Only L1 changes", "Both L1 and L2 change", "Only L2 changes", "Throws an Error"],
+        "answer": 1
+    },
+    {
+        "question": "How do you create a shallow copy of a list `L`?",
+        "options": ["L.copy()", "L[:]", "list(L)", "All of the above"],
+        "answer": 3
+    },
+    {
+        "question": "What is the output of `list(range(3))`?",
+        "options": ["[1, 2, 3]", "[0, 1, 2]", "[0, 1, 2, 3]", "range(0, 3)"],
+        "answer": 1
+    },
+    {
+        "question": "What does `[x**2 for x in range(3)]` return?",
+        "options": ["[0, 1, 4]", "[1, 4, 9]", "[0, 1, 2]", "Error"],
+        "answer": 0
+    },
+    {
+        "question": "Which function finds the largest element in a list of numbers?",
+        "options": ["maximum(L)", "highest(L)", "max(L)", "L.max()"],
+        "answer": 2
+    },
+    {
+        "question": "What happens if you use `insert(-1, 'x')` on a list of length 5?",
+        "options": ["'x' becomes the last element", "'x' becomes the second-to-last element", "Throws an error", "None of the above"],
+        "answer": 1
+    },
+    {
+        "question": "What is the default step size in list slicing `L[start:stop:step]`?",
+        "options": ["-1", "0", "1", "2"],
+        "answer": 2
+    },
+    {
+        "question": "If `L = ['a', 'b', 'c']`, what does `L.index('b')` return?",
+        "options": ["0", "1", "2", "-1"],
+        "answer": 1
+    },
+    {
+        "question": "What happens if you call `L.index('z')` when 'z' is not in `L`?",
+        "options": ["Returns -1", "Returns None", "Raises ValueError", "Returns False"],
+        "answer": 2
+    },
+    {
+        "question": "Which of these can hold elements of different data types?",
+        "options": ["Array (array module)", "List", "Both", "Neither"],
+        "answer": 1
+    },
+    {
+        "question": "How do you count occurrences of `5` in `L = [1, 5, 5, 2]`?",
+        "options": ["L.count(5)", "count(L, 5)", "L.occurrences(5)", "L.find(5)"],
+        "answer": 0
+    },
+    {
+        "question": "Given `L = [5, 2, 9]`, what does `L.sort()` return?",
+        "options": ["[2, 5, 9]", "None", "[9, 5, 2]", "True"],
+        "answer": 1
+    },
+    {
+        "question": "How do you sort a list `L` in descending order?",
+        "options": ["L.sort(descending=True)", "L.sort(reverse=True)", "reverse(L)", "L.sort(-1)"],
+        "answer": 1
+    },
+    {
+        "question": "What does `sorted(L)` do?",
+        "options": ["Sorts L in place", "Returns a new sorted list", "Raises an error", "Same as L.sort()"],
+        "answer": 1
+    },
+    {
+        "question": "If `L = []`, what does `bool(L)` evaluate to?",
+        "options": ["True", "False", "None", "Error"],
+        "answer": 1
+    },
+    {
+        "question": "Can a Python list contain another Python list?",
+        "options": ["Yes, infinitely", "No", "Yes, but only one level deep", "Only if sizes match"],
+        "answer": 0
+    },
+    {
+        "question": "Which method removes an element by value?",
+        "options": ["pop()", "delete()", "remove()", "discard()"],
+        "answer": 2
+    },
+    {
+        "question": "What happens when you `del L[1]`?",
+        "options": ["The element at index 1 is removed", "The value 1 is removed", "The list is deleted", "Error"],
+        "answer": 0
+    },
+    {
+        "question": "What is `[1, 2] + [3, 4]`?",
+        "options": ["[4, 6]", "[1, 2, 3, 4]", "[[1, 2], [3, 4]]", "Error"],
+        "answer": 1
+    },
+    {
+        "question": "If `L = [1, 2, 3]`, what is `L[10:]`?",
+        "options": ["IndexError", "[]", "[3]", "None"],
+        "answer": 1
+    },
+    {
+        "question": "What is `min(['z', 'a', 'x'])`?",
+        "options": ["'a'", "'x'", "'z'", "Error"],
+        "answer": 0
+    },
+    {
+        "question": "How do you multiply every element in a list `L` by 2 using list comprehension?",
+        "options": ["[x * 2 for x in L]", "L * 2", "L.map(*2)", "[x * 2] * len(L)"],
+        "answer": 0
+    },
+    {
+        "question": "What is `any([0, False, ''])`?",
+        "options": ["True", "False", "None", "Error"],
+        "answer": 1
+    },
+    {
+        "question": "What is `all([1, True, 'hi'])`?",
+        "options": ["True", "False", "None", "Error"],
+        "answer": 0
+    },
+    {
+        "question": "Given `L = [10]`, what does `L * 3` produce?",
+        "options": ["[30]", "[10, 10, 10]", "[[10], [10], [10]]", "Error"],
+        "answer": 1
+    },
+    {
+        "question": "Which of these perfectly mimics a stack?",
+        "options": ["append() & insert()", "append() & pop()", "insert() & remove()", "push() & pop()"],
+        "answer": 1
+    },
+    {
+        "question": "Which is faster for inserting elements at the beginning of a list?",
+        "options": ["L.insert(0, x)", "Collections.deque", "L = [x] + L", "L.append(0, x)"],
+        "answer": 1
+    },
+    {
+        "question": "What is the output of `['a', 'b', 'c'].pop(1)`?",
+        "options": ["'a'", "'b'", "'c'", "['a', 'c']"],
+        "answer": 1
+    },
+    {
+        "question": "What is `sum([1, 2, 3, 4])`?",
+        "options": ["10", "4", "24", "None"],
+        "answer": 0
+    },
+    {
+        "question": "What does `list('hello')` produce?",
+        "options": ["['hello']", "['h', 'e', 'l', 'l', 'o']", "Error", "None"],
+        "answer": 1
+    },
+    {
+        "question": "What does `['a'] == ['a']` evaluate to?",
+        "options": ["True", "False", "None", "Error"],
+        "answer": 0
+    },
+    {
+        "question": "If `L = [1, 2]`, what does `L.append([3, 4])` result in?",
+        "options": ["[1, 2, 3, 4]", "[1, 2, [3, 4]]", "Error", "[[1, 2], [3, 4]]"],
+        "answer": 1
+    },
+    {
+        "question": "How do you unpack a list `L = [1, 2]` into variables `a` and `b`?",
+        "options": ["a, b = L", "a = L[0]; b = L[1]", "Both A & B", "Not possible"],
+        "answer": 2
+    }
+]
