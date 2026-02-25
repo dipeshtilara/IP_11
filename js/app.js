@@ -166,6 +166,96 @@ function renderVisualizer(container) {
                 Ready.
             </div>
         </div>
+
+        <div class="card" style="margin-top: 2rem; background: #fff; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">
+            <h3 style="color: var(--primary); margin-bottom: 1rem; border-bottom: 2px solid var(--accent); padding-bottom: 0.5rem; display: inline-block;">Python List Methods Reference</h3>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.95rem;">
+                    <thead>
+                        <tr style="background-color: var(--primary); color: white;">
+                            <th style="padding: 12px; text-align: left; border-top-left-radius: 6px; width: 20%;">Function / Method</th>
+                            <th style="padding: 12px; text-align: left; width: 35%;">Purpose</th>
+                            <th style="padding: 12px; text-align: left; width: 25%;">Example</th>
+                            <th style="padding: 12px; text-align: left; border-top-right-radius: 6px; width: 20%;">Output</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>len(list)</strong></td>
+                            <td style="padding: 12px; color: #475569;">Returns the total number of elements in the list.</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">L = [1, 2, 3]<br>print(len(L))</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">3</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>list(sequence)</strong></td>
+                            <td style="padding: 12px; color: #475569;">Converts another sequence (like a string, tuple) into a list.</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">s = "Hi"<br>print(list(s))</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">['H', 'i']</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>list.append(x)</strong></td>
+                            <td style="padding: 12px; color: #475569;">Adds a single element <code>x</code> to the end of the list.</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">L = [1]<br>L.append(2)</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">[1, 2]</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>list.insert(i, x)</strong></td>
+                            <td style="padding: 12px; color: #475569;">Adds an element <code>x</code> at a specific index <code>i</code>.</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">L = [1, 3]<br>L.insert(1, 2)</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">[1, 2, 3]</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>list.extend(iterable)</strong></td>
+                            <td style="padding: 12px; color: #475569;">Adds multiple elements (from another list or iterable) to the end.</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">L = [1]<br>L.extend([2, 3])</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">[1, 2, 3]</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>list.count(x)</strong></td>
+                            <td style="padding: 12px; color: #475569;">Returns how many times a specific value <code>x</code> appears.</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">L = [1, 2, 1]<br>print(L.count(1))</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">2</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>list.index(x)</strong></td>
+                            <td style="padding: 12px; color: #475569;">Returns the index of the first occurrence of a value <code>x</code>.</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">L = ['a', 'b', 'c']<br>print(L.index('b'))</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">1</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>list.remove(x)</strong></td>
+                            <td style="padding: 12px; color: #475569;">Deletes the first occurrence of a specific value <code>x</code>.</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">L = [1, 2, 3]<br>L.remove(2)</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">[1, 3]</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>list.pop([i])</strong></td>
+                            <td style="padding: 12px; color: #475569;">Removes and returns an element at a given index <code>i</code> (or the last one if omitted).</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">L = [1, 2, 3]<br>res = L.pop(1)</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">res: 2<br>L: [1, 3]</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>list.reverse()</strong></td>
+                            <td style="padding: 12px; color: #475569;">Reverses the order of items in the list in place.</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">L = [1, 2, 3]<br>L.reverse()</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">[3, 2, 1]</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>list.sort()</strong></td>
+                            <td style="padding: 12px; color: #475569;">Sorts the list in ascending (or descending) order in place.</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">L = [3, 1, 2]<br>L.sort()</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">[1, 2, 3]</td>
+                        </tr>
+                        <tr style="background-color: #f8fafc;">
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>min(), max(), sum()</strong></td>
+                            <td style="padding: 12px; color: #475569;">Finds the smallest, largest, or total sum of numeric elements in the list. (Built-in functions)</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">L = [1, 2, 3]<br>print(sum(L))</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">6</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     `;
 
     const listDisplay = document.getElementById('list-display');
@@ -214,6 +304,18 @@ function renderVisualizer(container) {
         });
     };
 
+    // Helper: Live Update Indices after shifts
+    const updateIndices = () => {
+        const activeNodes = Array.from(listDisplay.children).filter(n => !n.classList.contains('leaving'));
+        activeNodes.forEach((node, idx) => {
+            const negIdx = idx - activeNodes.length;
+            const indexDiv = node.querySelector('.node-index');
+            if (indexDiv) {
+                indexDiv.innerHTML = `${idx} <br><span style="color:#a8a29e; font-size: 0.8em">(${negIdx})</span>`;
+            }
+        });
+    };
+
     // Initial Render
     render();
 
@@ -228,8 +330,11 @@ function renderVisualizer(container) {
         const newNode = createNodeFn(val, listData.length - 1, true);
         listDisplay.appendChild(newNode);
 
-        // Remove animation class after animation
-        setTimeout(() => newNode.classList.remove('entering'), 400);
+        // Trigger reflow to start animation
+        void newNode.offsetWidth;
+        newNode.classList.remove('entering');
+
+        updateIndices();
 
         log(`list.append(${val})`);
         valInput.value = '';
@@ -243,15 +348,17 @@ function renderVisualizer(container) {
             return;
         }
 
-        const nodes = listDisplay.children;
-        const lastNode = nodes[nodes.length - 1];
+        const activeNodes = Array.from(listDisplay.children).filter(n => !n.classList.contains('leaving'));
+        const lastNode = activeNodes[activeNodes.length - 1];
 
         lastNode.classList.add('leaving');
         log(`list.pop() -> returned ${listData[listData.length - 1]}`);
 
+        listData.pop();
+        updateIndices(); // Live update indices of remaining elements
+
         setTimeout(() => {
-            listData.pop();
-            render(); // Re-render to ensure indices update if needed (not needed for pop but good practice)
+            if (lastNode && lastNode.parentNode) lastNode.remove();
         }, 400);
     });
 
@@ -272,15 +379,22 @@ function renderVisualizer(container) {
 
         listData.splice(actualIdx, 0, val);
         log(`list.insert(${inputIdx}, ${val})`);
-        render(); // Full re-render is easiest for insert to act correctly visually
 
-        // Highlight the new node? 
-        // We can find it and animate it
-        const nodes = listDisplay.children;
-        if (nodes[actualIdx]) {
-            nodes[actualIdx].classList.add('entering');
-            setTimeout(() => nodes[actualIdx].classList.remove('entering'), 400);
+        const newNode = createNodeFn(val, actualIdx, true);
+
+        // Insert physically into DOM
+        const activeNodes = Array.from(listDisplay.children).filter(n => !n.classList.contains('leaving'));
+        if (actualIdx < activeNodes.length) {
+            listDisplay.insertBefore(newNode, activeNodes[actualIdx]);
+        } else {
+            listDisplay.appendChild(newNode); // fallback to end
         }
+
+        // Trigger reflow to start animation
+        void newNode.offsetWidth;
+        newNode.classList.remove('entering');
+
+        updateIndices(); // Push the +1 index change to trailing nodes visually instantly!
 
         valInput.value = '';
         idxInput.value = '';
@@ -288,12 +402,9 @@ function renderVisualizer(container) {
 
     // Remove (Value)
     document.getElementById('btn-remove').addEventListener('click', () => {
-        const val = valInput.value; // inputs are strings by default
+        const val = valInput.value;
         if (val === '') return;
 
-        // Try to find numeric match if possible, else string match
-        // Our listData can be mixed strings/numbers based on input
-        // Simple check:
         const idx = listData.findIndex(item => item == val);
 
         if (idx === -1) {
@@ -301,29 +412,31 @@ function renderVisualizer(container) {
             return;
         }
 
-        // Animate removal
-        const nodes = listDisplay.children;
-        if (nodes[idx]) {
-            nodes[idx].classList.add('leaving');
+        const activeNodes = Array.from(listDisplay.children).filter(n => !n.classList.contains('leaving'));
+        const targetNode = activeNodes[idx];
+
+        if (targetNode) {
+            targetNode.classList.add('leaving');
         }
 
         log(`list.remove(${val})`);
+        listData.splice(idx, 1);
+
+        updateIndices();
 
         setTimeout(() => {
-            listData.splice(idx, 1);
-            render();
+            if (targetNode && targetNode.parentNode) targetNode.remove();
         }, 400);
     });
 
     // Sort
     document.getElementById('btn-sort').addEventListener('click', () => {
-        // Simple sort (coercing types might be weird but it's a demo)
         listData.sort((a, b) => {
             if (!isNaN(a) && !isNaN(b)) return a - b;
             return String(a).localeCompare(String(b));
         });
         log(`list.sort()`);
-        render();
+        render(); // Sorting is too complex to animate node swaps easily right now, re-render is fine.
     });
 
     // Reverse
@@ -337,7 +450,9 @@ function renderVisualizer(container) {
     document.getElementById('btn-clear').addEventListener('click', () => {
         listData = [];
         log(`list.clear()`);
-        render();
+        // Animate all out
+        Array.from(listDisplay.children).forEach(n => n.classList.add('leaving'));
+        setTimeout(() => render(), 400);
     });
 }
 
@@ -483,22 +598,39 @@ function renderTraversal(container) {
         debugList.forEach((item, i) => {
             const isProcessed = i < loopIndex;
             const isActive = i === loopIndex;
+            const isFirstIteration = loopIndex === 0 && isActive;
 
+            let baseClass = "list-node"; // We can reuse some logic, or keep the custom inline but add glow
             let bgCol = '#313244'; // Unprocessed
             let borderCol = '#45475a';
             let txtCol = '#cdd6f4';
+            let extraClass = "";
 
             if (isProcessed) { bgCol = '#a6e3a1'; borderCol = '#a6e3a1'; txtCol = '#11111b'; }
-            if (isActive) { bgCol = '#f9e2af'; borderCol = '#f39c12'; txtCol = '#11111b'; boxShadow = '0 0 10px #f39c12'; }
+            if (isActive) {
+                extraClass = "active-glow"; // Use our new CSS class instead of manual inline shadow/transform!
+                bgCol = '#eef2ff';
+                borderCol = '#6366f1';
+                txtCol = '#4f46e5';
+            }
 
             const pointVar = currentMode === 'index' ? `i=${i}` : `val="${item}"`;
-            const headerStr = isActive ? `<div style="color:#f39c12; font-weight:bold; position:absolute; top:-35px; left:0; width:100%; text-align:center; white-space:nowrap;">&darr; ${pointVar}</div>` : '';
 
-            const shadow = isActive ? 'box-shadow: 0 0 15px rgba(243, 156, 18, 0.6);' : '';
-            const transform = isActive ? 'transform: translateY(-5px);' : '';
+            // Premium Variable Watcher (Pop Effect) only on the first iteration to explain it, 
+            // otherwise just show the pointer normally.
+            let headerStr = '';
+            if (isActive) {
+                if (isFirstIteration) {
+                    const explainText = currentMode === 'index' ? `Variable "i" is now looking at index 0` : `Variable "fruit" picked up "apple"`;
+                    headerStr = `<div class="variable-watcher">${explainText}</div>`;
+                } else {
+                    headerStr = `<div style="color:#6366f1; font-weight:bold; position:absolute; top:-35px; left:0; width:100%; text-align:center; white-space:nowrap;">&darr; ${pointVar}</div>`;
+                }
+            }
 
+            // Notice we removed the inline transform/shadow and rely on extraClass
             boxContainer.innerHTML += `
-                <div style="position:relative; margin-top:20px; transition: all 0.3s ease; width:80px; height:80px; background:${bgCol}; border:2px solid ${borderCol}; border-radius:8px; display:flex; flex-direction:column; justify-content:center; align-items:center; color:${txtCol}; ${shadow} ${transform}">
+                <div class="${extraClass}" style="position:relative; margin-top:20px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); width:80px; height:80px; background:${bgCol}; border:2px solid ${borderCol}; border-radius:8px; display:flex; flex-direction:column; justify-content:center; align-items:center; color:${txtCol};">
                     ${headerStr}
                     <div style="font-size: 0.9em; font-weight:bold;">${item}</div>
                     <div style="font-size: 0.7em; opacity: 0.7;">index ${i}</div>
@@ -779,11 +911,16 @@ function renderSlicing(container) {
                 <!-- Visualization Panel -->
                 <div style="display:flex; flex-direction:column;">
                     
-                    <!-- Live Formula -->
-                    <div style="background:#1e1e2e; color:#cdd6f4; font-family:'Fira Code', monospace; padding:1.2rem; border-radius:8px; border-left:4px solid #f39c12; margin-bottom:2rem; box-shadow:0 4px 6px rgba(0,0,0,0.1);">
-                        <div style="color:#89b4fa; margin-bottom:0.5rem;">my_list = ["A", "B", "C", "D", "E", "F", "G"]</div>
-                        <div style="font-size:1.2rem; display:flex; align-items:center;">
+                    <!-- Live Formula (Dual-Pane Live Code Card) -->
+                    <div class="live-code-card">
+                        <div style="color:#89b4fa; margin-bottom:1rem; font-family:'Fira Code', monospace; font-size:1.1rem; border-bottom:1px solid #313244; padding-bottom:0.5rem;">my_list = ["A", "B", "C", "D", "E", "F", "G"]</div>
+                        <div class="code-display">
                             re_list = my_list[<span id="code-start" style="color:#f38ba8; margin:0 2px;"></span>:<span id="code-stop" style="color:#a6e3a1; margin:0 2px;"></span>:<span id="code-step" style="color:#f9e2af; margin:0 2px;">1</span>]
+                        </div>
+                        <div style="font-size:0.85rem; color:#a6adc8; display:flex; justify-content:space-between; margin-top:0.5rem;">
+                            <span><span style="display:inline-block; width:10px; height:10px; background:#f38ba8; border-radius:50%; margin-right:5px;"></span>Start Point</span>
+                            <span><span style="display:inline-block; width:10px; height:10px; background:#a6e3a1; border-radius:50%; margin-right:5px;"></span>Stop Limit</span>
+                            <span><span style="display:inline-block; width:10px; height:10px; background:#f9e2af; border-radius:50%; margin-right:5px;"></span>Step Size</span>
                         </div>
                     </div>
 
@@ -1009,6 +1146,443 @@ function renderSlicing(container) {
 }
 
 // ==========================================
+// 6. PROGRAMMING MODULE
+// ==========================================
+
+const programmingData = [
+    {
+        id: 1,
+        title: '1. The "Sum & Average" Calculator',
+        level: 'Basic (Building blocks)',
+        task: 'Input $n$ numbers from the user into a list and find their total sum and average without using the sum() function.',
+        skill: 'Using for loops and append().',
+        code: `n = int(input("Enter how many numbers: "))
+num_list = []
+
+for i in range(n):
+    val = float(input(f"Enter number {i+1}: "))
+    num_list.append(val)
+
+total_sum = 0
+for num in num_list:
+    total_sum += num
+
+average = total_sum / n
+print(f"List: {num_list}")
+print(f"Sum: {total_sum}, Average: {average}")`,
+        explanation: `<div class="explanation-box">
+            <h4>🧠 What is happening here?</h4>
+            <ol>
+                <li>We create an empty list <code>num_list = []</code>.</li>
+                <li>We use a <code>for i in range(n)</code> loop to ask the user for a number <code>n</code> times.</li>
+                <li>Inside the loop, <code>num_list.append(val)</code> physically attaches each new number to the end of our growing list.</li>
+                <li>To find the sum, we initialize an accumulator <code>total_sum = 0</code>.</li>
+                <li>We iterate through each <code>num</code> in the list, adding it to <code>total_sum</code>.</li>
+                <li>Finally, we divide the sum by <code>n</code> to find the average.</li>
+            </ol>
+        </div>`
+    },
+    {
+        id: 2,
+        title: '2. List Swapper',
+        level: 'Basic (Building blocks)',
+        task: "Write a program to swap the first and last elements of a list, regardless of the list's length.",
+        skill: 'Indexing (0 and -1) and variable assignment.',
+        code: `my_list = [10, 20, 30, 40, 50]
+print(f"Original: {my_list}")
+
+# Storing the first element temporarily
+temp = my_list[0]
+
+# Overwriting the first element with the last element
+my_list[0] = my_list[-1]
+
+# Overwriting the last element with the temporarily stored first element
+my_list[-1] = temp
+
+print(f"Swapped: {my_list}")`,
+        explanation: `<div class="explanation-box">
+            <h4>🧠 What is happening here?</h4>
+            <ol>
+                <li>We target the <strong>first element</strong> using index <code>[0]</code>.</li>
+                <li>We target the <strong>last element</strong> safely using index <code>[-1]</code>, which always works regardless of the list's size.</li>
+                <li>If we just say <code>my_list[0] = my_list[-1]</code>, we lose the original first element!</li>
+                <li>So, we must first store <code>my_list[0]</code> in a <code>temp</code> variable.</li>
+                <li>Then, we can safely overwrite index 0 with the value from index -1.</li>
+                <li>Finally, we put the <code>temp</code> value into index -1.</li>
+            </ol>
+            <div style="background:var(--bg-card); padding:10px; border-radius:6px; margin-top:10px;">
+                💡 <em>Pythonic shortcut:</em> <code>my_list[0], my_list[-1] = my_list[-1], my_list[0]</code> does this in one line without a temp variable!
+            </div>
+        </div>`
+    },
+    {
+        id: 3,
+        title: '3. The "Even-Odd" Splitter',
+        level: 'Basic (Building blocks)',
+        task: 'Take a list of 10 numbers and create two separate lists: one containing only even numbers and the other only odd.',
+        skill: 'Using the Modulo operator (%) and if-else logic.',
+        code: `numbers = [12, 7, 34, 23, 89, 44, 10, 3, 5, 8]
+evens = []
+odds = []
+
+for num in numbers:
+    if num % 2 == 0:
+        evens.append(num)
+    else:
+        odds.append(num)
+
+print(f"Original: {numbers}")
+print(f"Evens: {evens}")
+print(f"Odds: {odds}")`,
+        explanation: `<div class="explanation-box">
+            <h4>🧠 What is happening here?</h4>
+            <ol>
+                <li>We prepare two empty baskets: <code>evens = []</code> and <code>odds = []</code>.</li>
+                <li>We pick up each number one by one using a <code>for</code> loop.</li>
+                <li>We check if the number is even using the Modulo operator: <code>num % 2 == 0</code>. This asks "Is the remainder perfectly 0 when divided by 2?"</li>
+                <li>If True (even), we <code>append()</code> it to the <code>evens</code> list.</li>
+                <li>If False (odd), it falls into the <code>else</code> block, and we <code>append()</code> it to the <code>odds</code> list.</li>
+            </ol>
+        </div>`
+    },
+    {
+        id: 4,
+        title: '4. The "Max-Min" Finder (The Manual Way)',
+        level: 'Medium (Logic & Analysis)',
+        task: 'Find the largest and smallest number in a list without using max() or min().',
+        skill: 'Comparison logic (Initializing a variable to list[0] and iterating).',
+        code: `data = [45, 12, 89, 33, 7, 99, 21]
+
+# Assume the first element is both the max and min initially
+maximum = data[0]
+minimum = data[0]
+
+for num in data:
+    if num > maximum:
+        maximum = num
+    if num < minimum:
+        minimum = num
+
+print(f"List: {data}")
+print(f"Maximum value: {maximum}")
+print(f"Minimum value: {minimum}")`,
+        explanation: `<div class="explanation-box">
+            <h4>🧠 What is happening here?</h4>
+            <ol>
+                <li>We must set a baseline. We cannot initialize our max/min to 0 because if the list contains only negative numbers, 0 would incorrectly be the maximum!</li>
+                <li>Instead, we assume the very first element <code>data[0]</code> is both the current champion (maximum) and current loser (minimum).</li>
+                <li>We iterate through the rest of the list.</li>
+                <li>If we find a number <code>&gt; maximum</code>, we crown a new maximum champion.</li>
+                <li>If we find a number <code>&lt; minimum</code>, we set a new minimum.</li>
+            </ol>
+        </div>`
+    },
+    {
+        id: 5,
+        title: '5. Element Searcher (Linear Search)',
+        level: 'Medium (Logic & Analysis)',
+        task: 'Ask the user for a number to search for. If it’s in the list, print its index; otherwise, print "Not Found."',
+        skill: 'Membership operators (in) and the index() method.',
+        code: `inventory = [101, 205, 309, 415, 502, 688]
+print(f"Current Inventory IDs: {inventory}")
+
+target = int(input("Enter ID to search for: "))
+
+if target in inventory:
+    pos = inventory.index(target)
+    print(f"Found! Item {target} is at index {pos}.")
+else:
+    print("Not Found.")`,
+        explanation: `<div class="explanation-box">
+            <h4>🧠 What is happening here?</h4>
+            <ol>
+                <li>We use the magical <code>in</code> operator. <code>target in inventory</code> scans the entire list internally and returns <code>True</code> if the item exists, preventing errors.</li>
+                <li>If it exists, we are safe to call <code>inventory.index(target)</code>, which scans from left-to-right and stops at the <strong>first occurrence</strong> of the target, returning its position (index).</li>
+                <li>If <code>in</code> returned <code>False</code>, the <code>else</code> block gracefully prints "Not Found" without crashing the program.</li>
+            </ol>
+        </div>`
+    },
+    {
+        id: 6,
+        title: '6. Remove Duplicates',
+        level: 'Medium (Logic & Analysis)',
+        task: 'Given a list with repeating numbers, create a new list that contains each number only once.',
+        skill: 'Creating a "Result" list and checking if an item already exists before appending.',
+        code: `raw_data = [1, 2, 2, 3, 4, 4, 1, 5, 2]
+clean_data = []
+
+for item in raw_data:
+    if item not in clean_data:
+        clean_data.append(item)
+
+print(f"Raw Data: {raw_data}")
+print(f"Clean Data (No Duplicates): {clean_data}")`,
+        explanation: `<div class="explanation-box">
+            <h4>🧠 What is happening here?</h4>
+            <ol>
+                <li>We start with an empty <code>clean_data</code> list that acts as our filter.</li>
+                <li>We look at every <code>item</code> in the <code>raw_data</code>.</li>
+                <li>The crucial step is the condition: <code>if item not in clean_data</code>. We are asking our filter basket: "Do you already have this item?"</li>
+                <li>Only if the answer is <em>No</em> (it's essentially a new, unseen item), do we <code>append()</code> it.</li>
+                <li>This guarantees that the <code>clean_data</code> list will never contain duplicates, preserving the original order of appearance!</li>
+            </ol>
+        </div>`
+    },
+    {
+        id: 7,
+        title: '7. List Reversal (In-place)',
+        level: 'Medium (Logic & Analysis)',
+        task: 'Reverse the order of a list without using the .reverse() method or [::-1] slicing.',
+        skill: 'Using a for loop to swap elements from the front and back.',
+        code: `elements = ['A', 'B', 'C', 'D', 'E']
+print(f"Original: {elements}")
+
+n = len(elements)
+# We only need to loop halfway!
+for i in range(n // 2):
+    # Swap elements at index i and (n - 1 - i)
+    temp = elements[i]
+    elements[i] = elements[n - 1 - i]
+    elements[n - 1 - i] = temp
+
+print(f"Reversed: {elements}")`,
+        explanation: `<div class="explanation-box">
+            <h4>🧠 What is happening here?</h4>
+            <ol>
+                <li>Imagine two pointers: one starting at the very front (index 0) and one at the very back (index <code>n-1</code>).</li>
+                <li>We swap the elements they are pointing at.</li>
+                <li>Then, we move the front pointer one step forward, and the back pointer one step backward (index <code>n - 1 - i</code>).</li>
+                <li><strong>Crucial insight:</strong> We only loop exactly halfway (<code>n // 2</code>). If we looped the whole length, we would reverse the list, and then accidentally reverse it back to normal!</li>
+                <li>For an odd-length list (e.g., length 5), the middle element (index 2) stays exactly where it is.</li>
+            </ol>
+        </div>`
+    },
+    {
+        id: 8,
+        title: '8. Frequency Counter',
+        level: 'Advanced (Combining Concepts)',
+        task: 'For a given list of items, count how many times each item appears and display it.',
+        skill: 'Iterating over unique items and using count().',
+        code: `inventory = ['apple', 'banana', 'apple', 'cherry', 'banana', 'apple']
+checked = [] # To keep track of items we've already counted
+
+print(f"Inventory List: {inventory}\n")
+
+for fruit in inventory:
+    if fruit not in checked:
+        count = inventory.count(fruit)
+        print(f"{fruit}: {count}")
+        checked.append(fruit) # Mark as counted!`,
+        explanation: `<div class="explanation-box">
+            <h4>🧠 What is happening here?</h4>
+            <ol>
+                <li>We want to output the count of each fruit, but we don't want to print "apple: 3" three separate times!</li>
+                <li>Therefore, we maintain an auxiliary list called <code>checked</code>.</li>
+                <li>For each fruit in the inventory, we first ask: "Have we already calculated and printed the count for this fruit?" (<code>if fruit not in checked</code>)</li>
+                <li>If not, we calculate its frequency using <code>inventory.count(fruit)</code> and print it.</li>
+                <li>Immediately after, we add it to the <code>checked</code> list so we ignore it the next time the loop encounters it.</li>
+            </ol>
+        </div>`
+    },
+    {
+        id: 9,
+        title: '9. The "Circular Shift"',
+        level: 'Advanced (Combining Concepts)',
+        task: 'Shift all elements of a list to the left by one position. The first element should move to the very end.',
+        skill: 'Combining pop(0) and append().',
+        code: `queue = [10, 20, 30, 40, 50]
+print(f"Initial State: {queue}")
+
+# 1. Remove the first element (index 0)
+first_element = queue.pop(0)
+
+# 2. Append it to the end
+queue.append(first_element)
+
+print(f"After Left Shift: {queue}")`,
+        explanation: `<div class="explanation-box">
+            <h4>🧠 What is happening here?</h4>
+            <ol>
+                <li>We have a line representing a <code>queue</code>. We want the person at the front (index 0) to move to the back of the line, shifting everyone else forward.</li>
+                <li>We use <code>queue.pop(0)</code>. This powerful method does two things at once: it deletes the element at index 0 from the list, causing all other elements to instantly slide left to fill the gap, AND it returns that deleted value to us, which we save as <code>first_element</code>.</li>
+                <li>Now that the gap is closed, we simply use <code>queue.append(first_element)</code> to stick that saved value at the very end of the list.</li>
+            </ol>
+        </div>`
+    },
+    {
+        id: 10,
+        title: '10. List of Lists (Nested Student Record)',
+        level: 'Advanced (Combining Concepts)',
+        task: 'Create a list of students [RollNo, Name, Marks]. Allow searching for a student by Roll Number.',
+        skill: 'Nested list indexing (list[i][j]).',
+        code: `# A list where each element is itself a list [RollNo, Name, Marks]
+database = [
+    [101, "Alice", 85.5],
+    [102, "Bob", 92.0],
+    [103, "Charlie", 78.0]
+]
+
+search_roll = int(input("Enter Roll No to find: "))
+found = False
+
+for student in database:
+    # student is a sub-list, e.g., [101, "Alice", 85.5]
+    if student[0] == search_roll: 
+        print(f"Student Found! Name: {student[1]}, Marks: {student[2]}")
+        found = True
+        break # Stop searching
+
+if not found:
+    print("No student exists with that Roll Number.")`,
+        explanation: `<div class="explanation-box">
+            <h4>🧠 What is happening here?</h4>
+            <ol>
+                <li>We create a 2-Dimensional structure: a list of lists.</li>
+                <li>When we iterate <code>for student in database:</code>, the variable <code>student</code> represents an entire inner list (e.g., <code>[101, "Alice", 85.5]</code>) on each loop.</li>
+                <li>Because <code>student</code> is a list, we can access its internal elements using indexes: <code>student[0]</code> is the Roll Number, <code>student[1]</code> is the Name.</li>
+                <li>We check if <code>student[0]</code> matches the user's search. If it does, we print their data, set our flag <code>found = True</code>, and immediately <code>break</code> the loop to save processing time.</li>
+            </ol>
+        </div>`
+    }
+];
+
+function renderProgramming(container) {
+    container.innerHTML = `
+        <div class="program-layout" style="display: flex; gap: 2rem; align-items: flex-start;">
+            <!-- Left Side: List of Programs -->
+            <div class="program-sidebar" style="flex: 0 0 320px; background: #fff; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 1rem; position: sticky; top: 1rem;">
+                <h3 style="color: var(--primary); margin-bottom: 1rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem;">Program Library</h3>
+                
+                <div class="program-level-group">
+                    <h4 style="color: var(--text-dark); margin: 1rem 0 0.5rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Level 1: Basic</h4>
+                    <ul class="program-list" id="prog-list-basic" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.25rem;"></ul>
+                </div>
+
+                <div class="program-level-group">
+                    <h4 style="color: var(--text-dark); margin: 1.5rem 0 0.5rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Level 2: Medium</h4>
+                    <ul class="program-list" id="prog-list-medium" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.25rem;"></ul>
+                </div>
+
+                <div class="program-level-group">
+                    <h4 style="color: var(--text-dark); margin: 1.5rem 0 0.5rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Level 3: Advanced</h4>
+                    <ul class="program-list" id="prog-list-advanced" style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.25rem;"></ul>
+                </div>
+            </div>
+
+            <!-- Right Side: Program Details -->
+            <div class="program-details" id="program-display" style="flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); padding: 2rem; min-height: 600px;">
+                <div style="text-align: center; color: var(--text-muted); margin-top: 100px;">
+                    <span style="font-size: 3rem; display: block; margin-bottom: 1rem;">💻</span>
+                    <h2>Select a program from the library</h2>
+                    <p>Choose any program from the left menu to view its task, solution, and visual explanation.</p>
+                </div>
+            </div>
+        </div>
+    `;
+
+    const listBasic = document.getElementById('prog-list-basic');
+    const listMedium = document.getElementById('prog-list-medium');
+    const listAdvanced = document.getElementById('prog-list-advanced');
+    const displayArea = document.getElementById('program-display');
+
+    // Function to render details
+    const showProgramDetails = (prog) => {
+        // Update active state on sidebar
+        document.querySelectorAll('.program-list li').forEach(li => li.style.background = 'transparent');
+        document.querySelectorAll('.program-list li').forEach(li => li.style.color = 'var(--text-dark)');
+        document.querySelectorAll('.program-list li').forEach(li => li.style.fontWeight = 'normal');
+
+        const activeItem = document.getElementById(`prog-item-${prog.id}`);
+        if (activeItem) {
+            activeItem.style.background = 'var(--bg-card)';
+            activeItem.style.color = 'var(--primary)';
+            activeItem.style.fontWeight = '600';
+            activeItem.style.borderRadius = '6px';
+        }
+
+        displayArea.innerHTML = `
+            <h2 style="color: var(--primary); margin-bottom: 0.5rem; font-size: 1.8rem;">${prog.title}</h2>
+            <div style="display: inline-block; background: var(--bg-card); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; margin-bottom: 2rem;">
+                ${prog.level}
+            </div>
+
+            <div style="background: #f8fafc; border-left: 4px solid var(--accent); padding: 1.5rem; margin-bottom: 2rem; border-radius: 0 8px 8px 0;">
+                <h4 style="margin-bottom: 0.5rem; color: #334155;">📋 The Task</h4>
+                <p style="font-size: 1.05rem; line-height: 1.6; color: #475569; margin-bottom: 1rem;">${prog.task}</p>
+                <div style="font-size: 0.9rem; color: #64748b;"><strong>Target Skill:</strong> ${prog.skill}</div>
+            </div>
+
+            <h3 style="margin-bottom: 1rem; color: var(--text-dark); display: flex; align-items: center; gap: 0.5rem;">
+                <span>🐍</span> Python Solution
+            </h3>
+            <div class="live-code-card" style="margin-bottom: 2rem; background: #1e1e2e; padding: 0; overflow: hidden;">
+                <div style="background: #11111b; padding: 8px 16px; border-bottom: 1px solid #313244; display: flex; gap: 6px;">
+                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #f38ba8;"></div>
+                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #f9e2af;"></div>
+                    <div style="width: 12px; height: 12px; border-radius: 50%; background: #a6e3a1;"></div>
+                </div>
+                <pre style="margin: 0; padding: 1.5rem; overflow-x: auto;"><code style="font-family: 'Fira Code', monospace; color: #cdd6f4; line-height: 1.5;">${prog.code}</code></pre>
+            </div>
+
+            ${prog.explanation}
+        `;
+
+        // Ensure explanation box gets styles injectively
+        const explanationBox = displayArea.querySelector('.explanation-box');
+        if (explanationBox) {
+            explanationBox.style.background = '#fff';
+            explanationBox.style.border = '1px solid #e2e8f0';
+            explanationBox.style.borderRadius = '12px';
+            explanationBox.style.padding = '1.5rem';
+            explanationBox.style.boxShadow = '0 4px 6px -1px rgba(0,0,0,0.05)';
+
+            const listItems = explanationBox.querySelectorAll('ol li');
+            listItems.forEach(li => {
+                li.style.marginBottom = '0.75rem';
+                li.style.lineHeight = '1.5';
+                li.style.color = '#334155';
+            });
+            const inlineCodes = explanationBox.querySelectorAll('code');
+            inlineCodes.forEach(c => {
+                c.style.background = '#f1f5f9';
+                c.style.padding = '2px 6px';
+                c.style.borderRadius = '4px';
+                c.style.color = 'var(--primary)';
+                c.style.fontFamily = "'Fira Code', monospace";
+                c.style.fontSize = '0.9em';
+            });
+        }
+    };
+
+    // Populate sidebar
+    programmingData.forEach(prog => {
+        const li = document.createElement('li');
+        li.id = "prog-item-" + prog.id;
+        li.style.padding = '8px 12px';
+        li.style.cursor = 'pointer';
+        li.style.transition = 'all 0.2s';
+
+        // Strip out the number prefix for cleaner sidebar
+        const cleanTitle = prog.title.replace(/^\\d+\\.\\s*/, '');
+        li.textContent = cleanTitle;
+
+        li.addEventListener('mouseover', () => {
+            if (li.style.fontWeight !== '600') li.style.background = '#f1f5f9';
+        });
+        li.addEventListener('mouseout', () => {
+            if (li.style.fontWeight !== '600') li.style.background = 'transparent';
+        });
+
+        li.addEventListener('click', () => showProgramDetails(prog));
+
+        if (prog.level.includes('Basic')) listBasic.appendChild(li);
+        else if (prog.level.includes('Medium')) listMedium.appendChild(li);
+        else listAdvanced.appendChild(li);
+    });
+}
+
+// ==========================================
 // APP: ROUTER & INIT
 // ==========================================
 
@@ -1037,6 +1611,10 @@ const routes = {
     quiz: {
         title: 'Test Your Knowledge',
         render: renderQuiz
+    },
+    programming: {
+        title: 'Programming Library',
+        render: renderProgramming
     }
 };
 
@@ -1059,7 +1637,7 @@ function navigateTo(tabName) {
 
     // Update Sidebar UI
     navItems.forEach(item => item.classList.remove('active'));
-    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+    document.querySelector("[data-tab='" + tabName + "']").classList.add('active');
 
     // Update Title
     pageTitle.textContent = route.title;
