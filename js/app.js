@@ -29,6 +29,19 @@ const theoryContent = {
             </div>
         </div>
     `,
+    eval: `
+        <div class="theory-card fade-in">
+            <h2>The <code>eval()</code> Function</h2>
+            <p>In your practicals, you'll often need to accept a full list directly from the user.</p>
+            <p><strong>What it does:</strong> It allows the user to type a full list (including brackets like <code>[1, 2, 3]</code>) as a string, and <code>eval()</code> converts it into an actual Python list object instantly.</p>
+            
+            <div class="code-block">
+                <span class="comment"># User types: [10, 20, 30]</span><br>
+                my_list = eval(input(<span class="string">"Enter a list: "</span>))<br>
+                print(type(my_list))  <span class="comment"># Output: &lt;class 'list'&gt;</span>
+            </div>
+        </div>
+    `,
     access: `
         <div class="theory-card fade-in">
             <h2>Accessing Elements</h2>
@@ -64,6 +77,33 @@ const theoryContent = {
             </div>
         </div>
     `,
+    comparison: `
+        <div class="theory-card fade-in">
+            <h2>List Comparison</h2>
+            <p>Python compares lists using <strong>Lexicographical Order</strong> (element by element).</p>
+            <p>It stops at the <em>first difference</em> it finds and does not care how long the list is or what numbers come later.</p>
+
+            <div class="code-block">
+                <span class="comment"># 4 is greater than 3, so it's True</span><br>
+                print([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>] &lt; [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>]) <br><br>
+                <span class="comment"># Stops at first difference (5 > 2). Length doesn't matter!</span><br>
+                print([<span class="number">1</span>, <span class="number">5</span>] &gt; [<span class="number">1</span>, <span class="number">2</span>, <span class="number">100</span>]) <span class="comment"># True</span>
+            </div>
+        </div>
+    `,
+    copying: `
+        <div class="theory-card fade-in">
+            <h2>Making a "True Copy"</h2>
+            <p>If you execute <code>list2 = list1</code>, they are the <strong>same list in memory</strong>. Changing <code>list2</code> will change <code>list1</code>!</p>
+            <p>To make a separate, independent copy, you must use one of these techniques:</p>
+
+            <div class="code-block">
+                list2 = list1.copy()    <span class="comment"># Using the built-in copy() method</span><br>
+                list2 = list(list1)     <span class="comment"># Using the list() explicit typecast</span><br>
+                list2 = list1[:]        <span class="comment"># Using deep slicing trick</span>
+            </div>
+        </div>
+    `,
     slicing: `
         <div class="theory-card fade-in">
             <h2>List Slicing</h2>
@@ -88,6 +128,33 @@ const theoryContent = {
                 <li><code>remove(x)</code>: Removes first occurrence of x.</li>
                 <li><code>sort()</code>: Sorts the list.</li>
             </ul>
+        </div>
+    `,
+    sorting_tricks: `
+        <div class="theory-card fade-in">
+            <h2><code>sort()</code> vs <code>sorted()</code> ⚠️</h2>
+            <p><strong>The Common Trick Question:</strong> Examiners love this. One changes the list forever; the other just gives you a temporary sorted version.</p>
+            <ul>
+                <li><code>list.sort()</code>: Modifies the original list (In-place). <strong>It returns <code>None</code>.</strong></li>
+                <li><code>sorted(list)</code>: Leaves the original list alone and <strong>returns a new sorted list</strong>.</li>
+            </ul>
+            <p style="background:#fff3cd; color:#856404; padding:10px; border-radius:6px; font-weight:bold; margin-top:1rem;">
+                📝 Expt Tip: If a question asks "What is the output of <code>print(my_list.sort())</code>?", the answer is <code>None</code>! If it asks for the value of <code>my_list</code> after that line, then it's the sorted list.
+            </p>
+        </div>
+    `,
+    practical_checklist: `
+        <div class="theory-card fade-in" style="border: 2px solid var(--accent); position: relative;">
+            <div style="position: absolute; top: -15px; left: 20px; background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">MUST KNOW</div>
+            <h2 style="margin-top: 10px;">📝 Practical File Checklist</h2>
+            <p>According to the latest CBSE guidelines, make sure your practical file includes these core concepts:</p>
+            <ul style="line-height: 1.8; list-style-type: none; padding-left: 0;">
+                <li>✅ Finding the 3rd largest/smallest number in a list (Medium-Advanced).</li>
+                <li>✅ Removing the first character from a list of strings (e.g., <code>['apple', 'banana']</code> → <code>['pple', 'anana']</code>).</li>
+                <li>✅ Linear Search (Finding a value and its index).</li>
+                <li>✅ Frequency of elements (How many times each number appears).</li>
+            </ul>
+            <p style="margin-top:1rem; font-size: 0.9rem; color: #475569;"><em>Tip: Solutions (like Linear Search and Frequency Counter) are available in our <strong>Programs</strong> module!</em></p>
         </div>
     `
 };
@@ -245,6 +312,18 @@ function renderVisualizer(container) {
                             <td style="padding: 12px; color: #475569;">Sorts the list in ascending (or descending) order in place.</td>
                             <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">L = [3, 1, 2]<br>L.sort()</td>
                             <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">[1, 2, 3]</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0; background-color: #f8fafc;">
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>list.sort(reverse=True)</strong></td>
+                            <td style="padding: 12px; color: #475569;">Sorts the list in descending order (highest to lowest) in place.</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">L = [1, 3, 2]<br>L.sort(reverse=True)</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">[3, 2, 1]</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>list.clear()</strong></td>
+                            <td style="padding: 12px; color: #475569;">Removes all elements from the list, leaving it empty.</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #334155;">L = [1, 2, 3]<br>L.clear()</td>
+                            <td style="padding: 12px; font-family: 'Fira Code', monospace; font-size: 0.85em; color: #10b981;">[]</td>
                         </tr>
                         <tr style="background-color: #f8fafc;">
                             <td style="padding: 12px; font-family: 'Fira Code', monospace; color: var(--accent); white-space: nowrap;"><strong>min(), max(), sum()</strong></td>
@@ -1442,6 +1521,131 @@ if not found:
                 <li>When we iterate <code>for student in database:</code>, the variable <code>student</code> represents an entire inner list (e.g., <code>[101, "Alice", 85.5]</code>) on each loop.</li>
                 <li>Because <code>student</code> is a list, we can access its internal elements using indexes: <code>student[0]</code> is the Roll Number, <code>student[1]</code> is the Name.</li>
                 <li>We check if <code>student[0]</code> matches the user's search. If it does, we print their data, set our flag <code>found = True</code>, and immediately <code>break</code> the loop to save processing time.</li>
+            </ol>
+        </div>`
+    },
+    {
+        id: 11,
+        title: '11. Find exactly the 3rd Largest/Smallest Number',
+        level: 'Advanced (Practical File Core)',
+        task: 'Find the 3rd largest and 3rd smallest numbers in a list of unique items, demonstrating sorting principles.',
+        skill: 'Sorting in ascending/descending order and positive/negative indexing.',
+        code: `# Assuming a list of unique numbers for simplicity
+scores = [85, 92, 78, 90, 88, 76, 95]
+print(f"Original Scores: {scores}")
+
+# Make a copy so we don't modify the original list!
+sorted_scores = sorted(scores)
+print(f"Sorted  Scores : {sorted_scores}")
+
+# The 3rd smallest is at index 2 (0, 1, 2)
+third_smallest = sorted_scores[2]
+
+# The 3rd largest is at index -3 (-1 is largest, -2 is 2nd largest...)
+third_largest = sorted_scores[-3]
+
+print(f"\\n3rd Smallest: {third_smallest}")
+print(f"3rd Largest : {third_largest}")`,
+        explanation: `<div class="explanation-box">
+            <h4>🧠 What is happening here?</h4>
+            <ol>
+                <li>We start with an unordered list of <code>scores</code>.</li>
+                <li>Instead of writing complex manual logic to find the 3rd extreme values, we leverage Python's powerful built-in sorting. We use <code>sorted()</code> to create a fresh, ordered copy of the list.</li>
+                <li>Because the list is now sorted from smallest to largest:
+                    <ul>
+                        <li>The 1st smallest is at index <code>0</code>.</li>
+                        <li>The 2nd smallest is at index <code>1</code>.</li>
+                        <li>The <strong>3rd smallest</strong> is at index <code>2</code>.</li>
+                    </ul>
+                </li>
+                <li>We use negative indexing to find the largest values:
+                    <ul>
+                        <li>The 1st largest is at index <code>-1</code>.</li>
+                        <li>The 2nd largest is at index <code>-2</code>.</li>
+                        <li>The <strong>3rd largest</strong> is at index <code>-3</code>.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>`
+    },
+    {
+        id: 12,
+        title: '12. Remove First Character from Strings',
+        level: 'Medium (Practical File Core)',
+        task: "Given a list of strings, remove the very first character from each string in the list (e.g., ['apple', 'banana'] &rarr; ['pple', 'anana']).",
+        skill: 'Iterating through lists and String Slicing.',
+        code: `words = ['apple', 'banana', 'cherry', 'date']
+print(f"Original: {words}")
+
+# Create a new list to hold our modified strings
+chopped_words = []
+
+for word in words:
+    # Slice the string starting from index 1 to the very end
+    new_word = word[1:] 
+    chopped_words.append(new_word)
+
+print(f"Modified: {chopped_words}")`,
+        explanation: `<div class="explanation-box">
+            <h4>🧠 What is happening here?</h4>
+            <ol>
+                <li>We have a list containing string objects: <code>['apple', 'banana', ...]</code></li>
+                <li>We iterate over each string using <code>for word in words:</code>.</li>
+                <li>Inside the loop, the variable <code>word</code> holds a string like <code>"apple"</code>.</li>
+                <li>Remember, <strong>strings are also sequences</strong> which can be sliced just like lists! We slice the string using <code>word[1:]</code>.
+                    <ul>
+                        <li>Index <code>0</code> is the first letter ('a').</li>
+                        <li>Index <code>1</code> is the second letter ('p').</li>
+                        <li>Leaving the stop index blank means "go all the way to the end".</li>
+                        <li>So <code>word[1:]</code> perfectly chops off the first letter.</li>
+                    </ul>
+                </li>
+                <li>Finally, we append this newly sliced string into our result list <code>chopped_words</code>.</li>
+            </ol>
+        </div>`
+    },
+    {
+        id: 13,
+        title: '13. Split List into N-sized Chunks',
+        level: 'Advanced (Combining Concepts)',
+        task: 'Take a long list and break it down into a "list of lists", where each smaller list has exactly N items (or fewer for the last chunk).',
+        skill: 'Using loops with a specified step size and list slicing.',
+        code: `long_data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+chunk_size = 3
+
+chunked_list = []
+n = len(long_data)
+
+# Step size in the range() function is 'chunk_size'
+for i in range(0, n, chunk_size):
+    # Slice a chunk starting from 'i' up to 'i + chunk_size'
+    chunk = long_data[i : i + chunk_size]
+    chunked_list.append(chunk)
+
+print(f"Original: {long_data}")
+print(f"Chunked ({chunk_size} items each):")
+for c in chunked_list:
+    print(c)`,
+        explanation: `<div class="explanation-box">
+            <h4>🧠 What is happening here?</h4>
+            <ol>
+                <li>We have a <code>long_data</code> list containing 10 items. We want chunks of size <code>3</code>.</li>
+                <li>The magic is in the loop control: <code>range(0, n, chunk_size)</code>.
+                    <ul>
+                        <li>It starts at index <code>0</code>.</li>
+                        <li>It steps forward by <code>3</code> each time.</li>
+                        <li>So <code>i</code> will be: <code>0, 3, 6, 9</code>.</li>
+                    </ul>
+                </li>
+                <li>Inside the loop, we use slicing: <code>long_data[i : i + chunk_size]</code>.
+                    <ul>
+                        <li>Loop 1: <code>long_data[0:3]</code> (Elements 0, 1, 2)</li>
+                        <li>Loop 2: <code>long_data[3:6]</code> (Elements 3, 4, 5)</li>
+                        <li>Loop 3: <code>long_data[6:9]</code> (Elements 6, 7, 8)</li>
+                        <li>Loop 4: <code>long_data[9:12]</code> (Element 9. Slicing gracefully stops at the end of the list without out-of-bounds errors!)</li>
+                    </ul>
+                </li>
+                <li>We append each slice into our main <code>chunked_list</code>, creating a clean List of Lists.</li>
             </ol>
         </div>`
     }
